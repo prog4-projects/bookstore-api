@@ -1,9 +1,7 @@
 package prog.hei.app.entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
-
 import lombok.*;
 import prog.hei.app.entity.enums.UserGenderEnum;
 

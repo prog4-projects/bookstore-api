@@ -10,15 +10,15 @@ import lombok.*;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 public class LibraryBook {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "library_id")
-    private Library library;
+  @ManyToOne
+  @JoinColumn(name = "library_id")
+  private Library library;
 
-    @ManyToOne
-    @JoinColumn(name = "book_id")
-    private Book book;
+  @ManyToOne
+  @JoinColumn(name = "book_id")
+  private Book book;
 }
