@@ -1,26 +1,26 @@
 package prog.hei.app.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import java.util.List;
+
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = false)
 public class Arrival {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private String id;
 
-  private Long quantity;
-  private Long unitCost;
   private LocalDate date;
+  private String description;
+
+  @OneToMany(mappedBy = "arrival")
+  private List<BookCopy> bookCopies;
 }

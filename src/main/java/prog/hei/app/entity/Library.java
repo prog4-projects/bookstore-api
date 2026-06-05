@@ -2,16 +2,15 @@ package prog.hei.app.entity;
 
 import jakarta.persistence.*;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import org.hibernate.annotations.Check;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = false)
 public class Library {
   @Id
@@ -24,5 +23,6 @@ public class Library {
   @Check(constraints = "LENGTH(phoneNumber) >= 10 AND LENGTH(phoneNumber) <= 15")
   private String phoneNumber;
 
-  @ManyToMany() private List<Book> books;
+  @OneToMany(mappedBy = "library")
+  private List<LibraryBook> libraryBooks;
 }

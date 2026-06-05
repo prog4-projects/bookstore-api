@@ -1,7 +1,16 @@
 package prog.hei.app.entity;
 
+import jakarta.persistence.*;
 import java.util.List;
+import lombok.*;
 
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = false)
 public class Author extends User {
-  private List<Book> books;
+  @OneToMany(mappedBy = "author")
+  private List<AuthorBook> authorBooks;
 }

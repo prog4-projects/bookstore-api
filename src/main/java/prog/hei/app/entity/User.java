@@ -1,19 +1,17 @@
 package prog.hei.app.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import prog.hei.app.entity.enums.UserGenderEnum;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -22,5 +20,7 @@ public class User {
   private String firstName;
   private String lastName;
   private LocalDate birthDate;
+
+  @Enumerated(EnumType.STRING)
   private UserGenderEnum gender;
 }

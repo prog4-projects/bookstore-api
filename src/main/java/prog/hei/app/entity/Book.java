@@ -3,16 +3,15 @@ package prog.hei.app.entity;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import org.hibernate.annotations.Check;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = false)
 public class Book {
   @Id
@@ -29,12 +28,14 @@ public class Book {
   @Check(constraints = "purchasePrice >= 0")
   private Double purchasePrice;
 
-  @Check(constraints = "sellingPrice = 0")
+  @Check(constraints = "sellingPrice >= 0")
   private Double sellingPrice;
 
   private LocalDate publicationDate;
 
-  @ManyToMany private List<Library> library;
+  @OneToMany(mappedBy = "book")
+  private List<AuthorBook> authorBooks;
 
-  private List<Author> authors;
+  @OneToMany(mappedBy = "book")
+  private List<LibraryBook> libraryBooks;
 }
