@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import lombok.*;
 import org.hibernate.annotations.Check;
+import prog.hei.app.entity.enums.BookFormatEnum;
 
 @Entity
 @AllArgsConstructor
@@ -23,6 +24,9 @@ public class Book {
 
   @Check(constraints = "pages > 0")
   private int pages;
+
+  @Enumerated(EnumType.STRING)
+  private BookFormatEnum format;
 
   @Check(constraints = "purchasePrice >= 0")
   private Double purchasePrice;
