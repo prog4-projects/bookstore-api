@@ -1,6 +1,6 @@
 package prog.hei.app.entity.enums;
 
-public enum GenderEnum {
+public enum UserGenderEnum {
   MALE,
   FEMALE
 }
