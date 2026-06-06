@@ -9,14 +9,10 @@ import prog.hei.app.entity.enums.BookStatusEnum;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false)
 public class BookCopy {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private String id;
-
-  @Column(unique = true, nullable = false)
-  private String code;
 
   @Enumerated(EnumType.STRING)
   private BookStatusEnum status;
@@ -28,4 +24,8 @@ public class BookCopy {
   @ManyToOne
   @JoinColumn(name = "arrival_id")
   private Arrival arrival;
+
+  @ManyToOne
+  @JoinColumn(name = "sale_id")
+  private Sale sale;
 }

@@ -6,13 +6,13 @@ import java.util.List;
 import lombok.*;
 import org.hibernate.annotations.Check;
 import prog.hei.app.entity.enums.BookFormatEnum;
+import prog.hei.app.entity.enums.BookGenderEnum;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false)
 public class Book {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -22,11 +22,16 @@ public class Book {
   private String title;
   private String publisher;
 
+  @Lob private String description;
+
   @Check(constraints = "pages > 0")
   private int pages;
 
   @Enumerated(EnumType.STRING)
   private BookFormatEnum format;
+
+  @Enumerated(EnumType.STRING)
+  private BookGenderEnum gender;
 
   @Check(constraints = "purchasePrice >= 0")
   private Double purchasePrice;

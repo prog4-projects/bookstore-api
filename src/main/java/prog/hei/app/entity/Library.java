@@ -10,7 +10,6 @@ import org.hibernate.annotations.Check;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false)
 public class Library {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)

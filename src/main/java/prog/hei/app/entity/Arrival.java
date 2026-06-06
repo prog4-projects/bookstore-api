@@ -10,7 +10,6 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false)
 public class Arrival {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)

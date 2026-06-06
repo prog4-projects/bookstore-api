@@ -10,6 +10,7 @@ import prog.hei.app.entity.enums.UserGenderEnum;
 @AllArgsConstructor
 @Getter
 @Setter
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
