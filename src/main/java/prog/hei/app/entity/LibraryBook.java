@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false)
 public class LibraryBook {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)

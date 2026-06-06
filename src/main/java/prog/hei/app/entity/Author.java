@@ -9,7 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false)
 public class Author extends User {
   @OneToMany(mappedBy = "author")
   private List<AuthorBook> authorBooks;
