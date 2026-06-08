@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@Table(name = "author")
 public class Author extends User {
   @OneToMany(mappedBy = "author")
   private List<AuthorBook> authorBooks;
