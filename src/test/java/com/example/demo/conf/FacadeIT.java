@@ -1,15 +1,15 @@
-package prog.hei.app.conf;
+package com.example.demo.conf;
 
 import static java.lang.Runtime.getRuntime;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
+import com.example.demo.PojaGenerated;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import prog.hei.app.PojaGenerated;
 
 @PojaGenerated
 @SpringBootTest(webEnvironment = RANDOM_PORT)
@@ -36,7 +36,7 @@ public class FacadeIT {
     new EmailConf().configureProperties(registry);
 
     try {
-      var envConfClazz = Class.forName("prog.hei.app.conf.EnvConf");
+      var envConfClazz = Class.forName("com.example.demo.conf.EnvConf");
       var envConfConfigureProperties =
           envConfClazz.getDeclaredMethod("configureProperties", DynamicPropertyRegistry.class);
       var envConf = envConfClazz.getConstructor().newInstance();
