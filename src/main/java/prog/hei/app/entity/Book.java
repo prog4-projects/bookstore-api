@@ -1,11 +1,10 @@
 package prog.hei.app.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import lombok.*;
-import org.hibernate.annotations.Check;
-import prog.hei.app.entity.enums.BookFormatEnum;
 import prog.hei.app.entity.enums.BookGenderEnum;
 
 @Entity
@@ -13,33 +12,39 @@ import prog.hei.app.entity.enums.BookGenderEnum;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "book")
 public class Book {
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
 
-  private String isbn;
+  @Id @GeneratedValue private UUID id;
+
+  @Column(nullable = false)
   private String title;
-  private String publisher;
 
-  @Lob private String description;
-
-  @Check(constraints = "pages > 0")
-  private int pages;
+  @Column(columnDefinition = "TEXT")
+  private String description;
 
   @Enumerated(EnumType.STRING)
-  private BookFormatEnum format;
-
-  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
   private BookGenderEnum gender;
 
-  @Check(constraints = "purchasePrice >= 0")
-  private Double purchasePrice;
+  @Column(nullable = false)
+  private LocalDateTime createdAt;
 
-  @Check(constraints = "sellingPrice >= 0")
-  private Double sellingPrice;
+  private LocalDateTime updatedAt;
 
-  private LocalDate publicationDate;
+  @PrePersist
+  public void prePersist() {
+    this.createdAt = LocalDateTime.now();
+    this.updatedAt = LocalDateTime.now();
+  }
+
+  @PreUpdate
+  public void preUpdate() {
+    this.updatedAt = LocalDateTime.now();
+  }
+
+  @OneToMany(mappedBy = "book")
+  private List<BookEdition> bookEditions;
 
   @OneToMany(mappedBy = "book")
   private List<AuthorBook> authorBooks;

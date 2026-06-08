@@ -3,6 +3,7 @@ package prog.hei.app.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,17 +15,15 @@ import prog.hei.app.entity.enums.SaleStatusEnum;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "sale")
 public class Sale {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
-
-  private Double totalAmount;
+  @Id @GeneratedValue private UUID id;
 
   @Enumerated(EnumType.STRING)
   private SaleStatusEnum status;
 
+  @Column(nullable = false)
   private LocalDateTime date;
 
   @ManyToOne
@@ -32,7 +31,7 @@ public class Sale {
   private Customer customer;
 
   @OneToMany(mappedBy = "sale")
-  private List<BookCopy> bookCopies;
+  private List<SaleItem> saleItems;
 
   @OneToMany(mappedBy = "sale")
   private List<Payment> payments;

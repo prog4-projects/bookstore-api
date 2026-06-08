@@ -1,6 +1,7 @@
 package prog.hei.app.entity;
 
 import jakarta.persistence.*;
+import java.util.UUID;
 import lombok.*;
 
 @Entity
@@ -8,10 +9,10 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@Table(name = "library_book")
 public class LibraryBook {
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
+
+  @Id @GeneratedValue private UUID id;
 
   @ManyToOne
   @JoinColumn(name = "library_id")

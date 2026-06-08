@@ -1,7 +1,9 @@
 package prog.hei.app.entity;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,16 +17,16 @@ import prog.hei.app.entity.enums.PaymentStatusEnum;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "payment")
 public class Payment {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
+  @Id @GeneratedValue private UUID id;
 
   @Enumerated(EnumType.STRING)
   private PaymentMethodEnum type;
 
-  private Double amount;
+  @Column(nullable = false)
+  private BigDecimal amount;
 
   @Enumerated(EnumType.STRING)
   private MobileMoneyProviderEnum mobileMoneyProvider;
@@ -35,6 +37,7 @@ public class Payment {
   @Enumerated(EnumType.STRING)
   private PaymentStatusEnum status;
 
+  @Column(nullable = false)
   private LocalDateTime date;
 
   @ManyToOne
