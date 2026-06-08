@@ -12,7 +12,7 @@ import prog.hei.app.entity.enums.UserGenderEnum;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "user")
+@Table(name = "app_user")
 public class User {
 
   @Id @GeneratedValue private UUID id;
