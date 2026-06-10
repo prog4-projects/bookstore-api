@@ -20,6 +20,7 @@ public class Library {
   @Column(nullable = false)
   private String name;
 
+  @Column(nullable = false)
   private String address;
 
   @Size(min = 8, max = 15)
