@@ -1,7 +1,6 @@
 package prog.hei.app.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +23,6 @@ public class Library {
   private String address;
 
   @Size(min = 8, max = 15)
-  @Pattern(regexp = "^\\d{8,15}$")
   @Column(nullable = false, length = 15)
   private String phoneNumber;
 
