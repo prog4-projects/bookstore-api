@@ -32,4 +32,16 @@ public class LibraryController {
   public LibraryResponse create(@RequestBody @Valid LibraryRequest request) {
     return libraryService.create(request);
   }
+
+  @PutMapping("/libraries/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public LibraryResponse update(@PathVariable UUID id, @RequestBody @Valid LibraryRequest request) {
+    return libraryService.update(id, request);
+  }
+
+  @DeleteMapping("/libraries/{id}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void delete(@PathVariable UUID id) {
+    libraryService.delete(id);
+  }
 }
