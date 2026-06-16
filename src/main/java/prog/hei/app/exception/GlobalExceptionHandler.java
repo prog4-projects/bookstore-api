@@ -15,15 +15,15 @@ import prog.hei.app.dto.error.ErrorResponse;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler(LibraryNotFoundException.class)
+  @ExceptionHandler(NotFoundException.class)
   public ResponseEntity<ErrorResponse> handlerLibraryNotFound(
-      LibraryNotFoundException libraryNotFoundException, HttpServletRequest request) {
+      NotFoundException notFoundException, HttpServletRequest request) {
     ErrorResponse response =
         new ErrorResponse(
             Instant.now(),
             HttpStatus.NOT_FOUND.value(),
             "NOT_FOUND",
-            libraryNotFoundException.getMessage(),
+            notFoundException.getMessage(),
             request.getRequestURI(),
             null);
 
