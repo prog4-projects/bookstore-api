@@ -1,4 +1,4 @@
-package prog.hei.app.endpoint.rest.controller.health;
+package prog.hei.app.endpoint.rest.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
