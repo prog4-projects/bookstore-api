@@ -3,6 +3,7 @@ package prog.hei.app.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import prog.hei.app.entity.BookEdition;
+import prog.hei.app.exception.BookEditionNotFoundException;
 import prog.hei.app.exception.NotFoundException;
 import prog.hei.app.repository.BookEditionRepository;
 
@@ -25,7 +26,7 @@ public class BookEditionService {
 
     public BookEdition getById(UUID id) {
         return repository.findById(id)
-                .orElseThrow(() -> new NotFoundException("BookEdition not found with id: " + id));
+                .orElseThrow(() -> new BookEditionNotFoundException("BookEdition not found with id: " + id));
     }
 
     public BookEdition update(UUID id, BookEdition updated) {
