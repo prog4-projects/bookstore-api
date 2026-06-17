@@ -9,13 +9,13 @@ import prog.hei.app.entity.enums.BookLanguageEnum;
 
 @Data
 public class BookEditionRequest {
-    private String isbn;
-    private BookLanguageEnum language;
-    private BookFormatEnum format;
-    private Integer pageCount;
-    private String publisher;
-    private BigDecimal price;
-    private LocalDateTime publicationDate;
-    private Integer stockQuantity;
-    private UUID bookId;
+  private String isbn;
+  private BookLanguageEnum language;
+  private BookFormatEnum format;
+  private Integer pageCount;
+  private String publisher;
+  private BigDecimal price;
+  private LocalDateTime publicationDate;
+  private Integer stockQuantity;
+  private UUID bookId;
 }

@@ -1,16 +1,10 @@
 package prog.hei.app.exception;
 
-public class BookEditionNotFoundException extends RuntimeException {
+import java.util.UUID;
 
-    public BookEditionNotFoundException() {
-        super("BookEdition not found");
-    }
+public class BookEditionNotFoundException extends NotFoundException {
 
-    public BookEditionNotFoundException(String message) {
-        super(message);
-    }
-
-    public BookEditionNotFoundException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  public BookEditionNotFoundException(UUID id) {
+    super("BookEdition not found " + id);
+  }
 }
