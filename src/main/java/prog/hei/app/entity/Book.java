@@ -35,9 +35,13 @@ public class Book {
   @PrePersist
   public void prePersist() {
     this.createdAt = LocalDateTime.now();
-    this.updatedAt = LocalDateTime.now();
+    this.updatedAt = LocalDateTime.now(); // try Instant
   }
 
+  /*
+   * Book (Java) !== JBook (SQL|JPA)
+   * ne pas coupler la couche metier et database - il faut les isoler, independant de la database
+   * */
   @PreUpdate
   public void preUpdate() {
     this.updatedAt = LocalDateTime.now();

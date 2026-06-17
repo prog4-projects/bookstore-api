@@ -32,7 +32,7 @@ public class BookEdition {
   @Column(nullable = false)
   private Integer pageCount;
 
-  private String publisher;
+  private String publisher; // try Publisher entity
 
   @Column(nullable = false)
   private BigDecimal price;
