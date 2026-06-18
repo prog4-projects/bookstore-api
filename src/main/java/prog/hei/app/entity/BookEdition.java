@@ -32,7 +32,7 @@ public class BookEdition {
   @Column(nullable = false)
   private Integer pageCount;
 
-  private String publisher; // try Publisher entity
+  private String publisher;
 
   @Column(nullable = false)
   private BigDecimal price;
@@ -40,13 +40,13 @@ public class BookEdition {
   @Column(nullable = false)
   private LocalDateTime publicationDate;
 
-  @Column(nullable = false)
-  private Integer stockQuantity;
-
   @ManyToOne
   @JoinColumn(name = "book_id", nullable = false)
   private Book book;
 
-  @OneToMany(mappedBy = "bookEdition")
+  @OneToMany(mappedBy = "bookEdition", cascade = CascadeType.REMOVE, orphanRemoval = true)
   private List<ArrivalItem> arrivalItems;
+
+  @OneToMany(mappedBy = "bookEdition", cascade = CascadeType.REMOVE, orphanRemoval = true)
+  private List<LibraryBook> libraryBooks;
 }

@@ -1,17 +1,13 @@
-package prog.hei.app.dto.library.response;
+package prog.hei.app.dto.bookEdition.response;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import prog.hei.app.entity.enums.BookFormatEnum;
-import prog.hei.app.entity.enums.BookGenderEnum;
 import prog.hei.app.entity.enums.BookLanguageEnum;
 
-public record LibraryBookResponse(
-    UUID bookEditionId,
-    String title,
-    String description,
-    BookGenderEnum gender,
+public record BookEditionResponse(
+    UUID id,
     String isbn,
     BookLanguageEnum language,
     BookFormatEnum format,

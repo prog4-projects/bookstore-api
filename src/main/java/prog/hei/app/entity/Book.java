@@ -47,12 +47,9 @@ public class Book {
     this.updatedAt = LocalDateTime.now();
   }
 
-  @OneToMany(mappedBy = "book")
+  @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE, orphanRemoval = true)
   private List<BookEdition> bookEditions;
 
-  @OneToMany(mappedBy = "book")
+  @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE, orphanRemoval = true)
   private List<AuthorBook> authorBooks;
-
-  @OneToMany(mappedBy = "book")
-  private List<LibraryBook> libraryBooks;
 }

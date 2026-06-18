@@ -14,11 +14,13 @@ public class LibraryBook {
 
   @Id @GeneratedValue private UUID id;
 
+  private int stock;
+
   @ManyToOne
   @JoinColumn(name = "library_id")
   private Library library;
 
   @ManyToOne
-  @JoinColumn(name = "book_id")
-  private Book book;
+  @JoinColumn(name = "book_edition_id")
+  private BookEdition bookEdition;
 }

@@ -1,6 +1,7 @@
 package prog.hei.app.endpoint.rest.controller;
 
 import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import prog.hei.app.endpoint.rest.dto.BookDto;
+import prog.hei.app.dto.book.request.BookRequest;
+import prog.hei.app.dto.book.response.BookResponse;
 import prog.hei.app.service.BookService;
 
 @RestController
@@ -23,29 +25,29 @@ public class BookController {
   private final BookService bookService;
 
   @GetMapping
-  public List<BookDto> getAll() {
+  public List<BookResponse> getAll() {
     return bookService.findAll();
   }
 
   @GetMapping("/{id}")
-  public BookDto getById(@PathVariable String id) {
+  public BookResponse getById(@PathVariable UUID id) {
     return bookService.findById(id);
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public BookDto create(@RequestBody BookDto dto) {
+  public BookResponse create(@RequestBody BookRequest dto) {
     return bookService.create(dto);
   }
 
   @PutMapping("/{id}")
-  public BookDto update(@PathVariable String id, @RequestBody BookDto dto) {
+  public BookResponse update(@PathVariable UUID id, @RequestBody BookRequest dto) {
     return bookService.update(id, dto);
   }
 
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void delete(@PathVariable String id) {
+  public void delete(@PathVariable UUID id) {
     bookService.delete(id);
   }
 }

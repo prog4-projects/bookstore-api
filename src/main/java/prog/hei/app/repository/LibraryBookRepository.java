@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import prog.hei.app.entity.LibraryBook;
 
 public interface LibraryBookRepository extends JpaRepository<LibraryBook, UUID> {
-  List<LibraryBook> findByBookId(UUID bookId);
+  List<LibraryBook> findByBookEditionId(UUID bookEditionId);
 
-  void deleteByBookId(UUID bookId);
+  void deleteByBookEditionId(UUID bookEditionId);
 }

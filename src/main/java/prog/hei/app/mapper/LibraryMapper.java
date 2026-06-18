@@ -38,12 +38,17 @@ public class LibraryMapper {
 
   public LibraryBookResponse toLibraryBookResponse(LibraryBook libraryBook) {
     return new LibraryBookResponse(
-        libraryBook.getBook().getId(),
-        libraryBook.getBook().getTitle(),
-        libraryBook.getBook().getDescription(),
-        libraryBook.getBook().getGender(),
-        libraryBook.getBook().getCreatedAt(),
-        libraryBook.getBook().getUpdatedAt());
+        libraryBook.getBookEdition().getId(),
+        libraryBook.getBookEdition().getBook().getTitle(),
+        libraryBook.getBookEdition().getBook().getDescription(),
+        libraryBook.getBookEdition().getBook().getGender(),
+        libraryBook.getBookEdition().getIsbn(),
+        libraryBook.getBookEdition().getLanguage(),
+        libraryBook.getBookEdition().getFormat(),
+        libraryBook.getBookEdition().getPageCount(),
+        libraryBook.getBookEdition().getPublisher(),
+        libraryBook.getBookEdition().getPrice(),
+        libraryBook.getBookEdition().getPublicationDate());
   }
 
   private List<LibraryBookResponse> toLibraryBookResponses(List<LibraryBook> libraryBooks) {
