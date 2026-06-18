@@ -2,6 +2,8 @@ package prog.hei.app.entity;
 
 import jakarta.persistence.*;
 import java.util.UUID;
+
+import jakarta.validation.constraints.Min;
 import lombok.*;
 
 @Entity
@@ -14,6 +16,7 @@ public class LibraryBook {
 
   @Id @GeneratedValue private UUID id;
 
+  @Min(0)
   private int stock;
 
   @ManyToOne
