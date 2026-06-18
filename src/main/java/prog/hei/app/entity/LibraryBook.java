@@ -1,9 +1,8 @@
 package prog.hei.app.entity;
 
 import jakarta.persistence.*;
-import java.util.UUID;
-
 import jakarta.validation.constraints.Min;
+import java.util.UUID;
 import lombok.*;
 
 @Entity
