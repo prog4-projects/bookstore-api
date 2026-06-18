@@ -14,7 +14,7 @@ plugins {
 }
 
 jacoco {
-    toolVersion = "0.8.13"
+    toolVersion = "0.8.11"
 }
 
 
@@ -114,7 +114,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.2.2'
     implementation 'org.flywaydb:flyway-core:9.22.3'
     testImplementation 'org.testcontainers:testcontainers-postgresql:2.0.2'
-    implementation 'org.postgresql:postgresql:42.7.4'
+    implementation 'org.postgresql:postgresql:42.6.0'
     implementation 'org.hibernate.orm:hibernate-community-dialects:6.4.3.Final'
 
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.3'
@@ -150,9 +150,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.2.2'
     testImplementation 'org.testcontainers:testcontainers-junit-jupiter:2.0.2'
     testImplementation 'org.junit-pioneer:junit-pioneer:2.2.0'
-
-    runtimeOnly 'com.h2database:h2:2.2.224'
-    testImplementation 'com.h2database:h2:2.2.224'
 
 implementation 'org.springframework.boot:spring-boot-starter-validation'
 
