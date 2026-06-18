@@ -10,60 +10,71 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import prog.hei.app.dto.error.ErrorResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
   @ExceptionHandler(NotFoundException.class)
-  public ResponseEntity<ErrorResponse> handlerLibraryNotFound(
-      NotFoundException notFoundException, HttpServletRequest request) {
-    ErrorResponse response =
-        new ErrorResponse(
-            Instant.now(),
-            HttpStatus.NOT_FOUND.value(),
-            "NOT_FOUND",
-            notFoundException.getMessage(),
-            request.getRequestURI(),
-            null);
+  public ResponseEntity<ErrorResponse> handleNotFound(
+      NotFoundException exception, HttpServletRequest request) {
+    return buildErrorResponse(HttpStatus.NOT_FOUND, "NOT_FOUND", exception.getMessage(), request);
+  }
 
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ResponseEntity<ErrorResponse> handleValidation(
+      IllegalArgumentException exception, HttpServletRequest request) {
+    return buildErrorResponse(
+        HttpStatus.BAD_REQUEST, "BAD_REQUEST", exception.getMessage(), request);
+  }
+
+  @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+  public ResponseEntity<ErrorResponse> handleTypeMismatch(
+      MethodArgumentTypeMismatchException exception, HttpServletRequest request) {
+    return buildErrorResponse(
+        HttpStatus.BAD_REQUEST, "TYPE_MISMATCH", exception.getMessage(), request);
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<ErrorResponse> handlerInvalidRequestBody(
-      MethodArgumentNotValidException methodArgumentNotValidException, HttpServletRequest request) {
-    Map<String, String> errors = new HashMap<>();
-
-    methodArgumentNotValidException
+  public ResponseEntity<ErrorResponse> handleInvalidRequestBody(
+      MethodArgumentNotValidException exception, HttpServletRequest request) {
+    Map<String, String> fieldErrors = new HashMap<>();
+    exception
         .getBindingResult()
         .getFieldErrors()
-        .forEach(fieldError -> errors.put(fieldError.getField(), fieldError.getDefaultMessage()));
-
-    ErrorResponse response =
-        new ErrorResponse(
-            Instant.now(),
-            HttpStatus.BAD_REQUEST.value(),
-            "BAD_REQUEST",
-            "Invalid request input",
-            request.getRequestURI(),
-            errors);
-
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        .forEach(
+            fieldError -> fieldErrors.put(fieldError.getField(), fieldError.getDefaultMessage()));
+    return buildErrorResponse(
+        HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Invalid request input", request, fieldErrors);
   }
 
   @ExceptionHandler(HttpMessageNotReadableException.class)
-  public ResponseEntity<ErrorResponse> handlerInvalidJson(
-      HttpMessageNotReadableException httpMessageNotReadableException, HttpServletRequest request) {
-    ErrorResponse response =
-        new ErrorResponse(
-            Instant.now(),
-            HttpStatus.BAD_REQUEST.value(),
-            "INVALID_JSON",
-            "Invalid JSON format or wrong data type",
-            request.getRequestURI(),
-            null);
+  public ResponseEntity<ErrorResponse> handleInvalidJson(
+      HttpMessageNotReadableException exception, HttpServletRequest request) {
+    return buildErrorResponse(
+        HttpStatus.BAD_REQUEST, "INVALID_JSON", "Invalid JSON format or wrong data type", request);
+  }
 
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+  private ResponseEntity<ErrorResponse> buildErrorResponse(
+      HttpStatus status, String error, String message, HttpServletRequest request) {
+    return buildErrorResponse(status, error, message, request, null);
+  }
+
+  private ResponseEntity<ErrorResponse> buildErrorResponse(
+      HttpStatus status,
+      String error,
+      String message,
+      HttpServletRequest request,
+      Map<String, String> fieldErrors) {
+    return ResponseEntity.status(status)
+        .body(
+            new ErrorResponse(
+                Instant.now(),
+                status.value(),
+                error,
+                message,
+                request.getRequestURI(),
+                fieldErrors));
   }
 }

@@ -26,6 +26,6 @@ public class Library {
   @Column(nullable = false, length = 15)
   private String phoneNumber;
 
-  @OneToMany(mappedBy = "library")
+  @OneToMany(mappedBy = "library", cascade = CascadeType.REMOVE, orphanRemoval = true)
   private List<LibraryBook> libraryBooks;
 }
