@@ -7,37 +7,46 @@ import org.springframework.stereotype.Service;
 import prog.hei.app.entity.BookEdition;
 import prog.hei.app.exception.BookEditionNotFoundException;
 import prog.hei.app.repository.BookEditionRepository;
+import prog.hei.app.repository.BookRepository;
 
 @Service
 @RequiredArgsConstructor
 public class BookEditionService {
 
   private final BookEditionRepository repository;
+  private final BookRepository bookRepository;
 
-  public BookEdition create(BookEdition bookEdition) {
-    return repository.save(bookEdition);
-  }
-
-  public List<BookEdition> getAll() {
+  public List<BookEdition> findAll() {
     return repository.findAll();
   }
 
-  public BookEdition getById(UUID id) {
+  public BookEdition findById(UUID id) {
     return repository.findById(id).orElseThrow(() -> new BookEditionNotFoundException(id));
   }
 
-  public BookEdition update(UUID id, BookEdition updated) {
-    BookEdition existing = getById(id);
+  public BookEdition create(BookEdition edition) {
+    return repository.save(edition);
+  }
 
-    existing.setPrice(updated.getPrice());
-    existing.setStockQuantity(updated.getStockQuantity());
+  public BookEdition update(UUID id, BookEdition updated) {
+    BookEdition existing = findById(id);
+
+    existing.setIsbn(updated.getIsbn());
+    existing.setLanguage(updated.getLanguage());
+    existing.setFormat(updated.getFormat());
+    existing.setPageCount(updated.getPageCount());
     existing.setPublisher(updated.getPublisher());
+    existing.setPrice(updated.getPrice());
+    existing.setPublicationDate(updated.getPublicationDate());
+    existing.setBook(updated.getBook());
 
     return repository.save(existing);
   }
 
   public void delete(UUID id) {
-    BookEdition existing = getById(id);
-    repository.delete(existing);
+    if (!repository.existsById(id)) {
+      throw new BookEditionNotFoundException(id);
+    }
+    repository.deleteById(id);
   }
 }
