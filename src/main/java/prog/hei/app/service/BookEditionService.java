@@ -23,21 +23,20 @@ public class BookEditionService {
   private final BookEditionMapper mapper;
 
   public List<BookEditionResponse> findAll() {
-    return repository.findAll()
-            .stream()
-            .map(mapper::toResponse)
-            .toList();
+    return repository.findAll().stream().map(mapper::toResponse).toList();
   }
 
   public BookEditionResponse findById(UUID id) {
-    BookEdition edition = repository.findById(id)
-            .orElseThrow(() -> new BookEditionNotFoundException(id));
+    BookEdition edition =
+        repository.findById(id).orElseThrow(() -> new BookEditionNotFoundException(id));
 
     return mapper.toResponse(edition);
   }
 
   public BookEditionResponse create(BookEditionRequest request) {
-    Book book = bookRepository.findById(request.bookId())
+    Book book =
+        bookRepository
+            .findById(request.bookId())
             .orElseThrow(() -> new BookNotFoundException(request.bookId()));
 
     BookEdition entity = mapper.toEntity(request, book);
@@ -46,10 +45,12 @@ public class BookEditionService {
   }
 
   public BookEditionResponse update(UUID id, BookEditionRequest request) {
-    BookEdition existing = repository.findById(id)
-            .orElseThrow(() -> new BookEditionNotFoundException(id));
+    BookEdition existing =
+        repository.findById(id).orElseThrow(() -> new BookEditionNotFoundException(id));
 
-    Book book = bookRepository.findById(request.bookId())
+    Book book =
+        bookRepository
+            .findById(request.bookId())
             .orElseThrow(() -> new BookNotFoundException(request.bookId()));
 
     existing.setIsbn(request.isbn());

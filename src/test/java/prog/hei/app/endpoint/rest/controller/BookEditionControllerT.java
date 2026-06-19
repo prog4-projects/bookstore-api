@@ -1,4 +1,3 @@
 package prog.hei.app.endpoint.rest.controller;
 
-public class BookEditionControllerT {
-}
+public class BookEditionControllerT {}

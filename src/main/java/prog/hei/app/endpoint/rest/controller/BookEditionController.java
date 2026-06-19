@@ -33,8 +33,7 @@ public class BookEditionController {
 
   @PutMapping("/{id}")
   public BookEditionResponse update(
-          @PathVariable UUID id,
-          @RequestBody @Valid BookEditionRequest request) {
+      @PathVariable UUID id, @RequestBody @Valid BookEditionRequest request) {
 
     return service.update(id, request);
   }
