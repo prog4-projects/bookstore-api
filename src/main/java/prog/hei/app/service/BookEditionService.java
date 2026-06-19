@@ -4,8 +4,13 @@ import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import prog.hei.app.dto.bookEdition.request.BookEditionRequest;
+import prog.hei.app.dto.bookEdition.response.BookEditionResponse;
+import prog.hei.app.entity.Book;
 import prog.hei.app.entity.BookEdition;
 import prog.hei.app.exception.BookEditionNotFoundException;
+import prog.hei.app.exception.BookNotFoundException;
+import prog.hei.app.mapper.BookEditionMapper;
 import prog.hei.app.repository.BookEditionRepository;
 import prog.hei.app.repository.BookRepository;
 
@@ -15,32 +20,48 @@ public class BookEditionService {
 
   private final BookEditionRepository repository;
   private final BookRepository bookRepository;
+  private final BookEditionMapper mapper;
 
-  public List<BookEdition> findAll() {
-    return repository.findAll();
+  public List<BookEditionResponse> findAll() {
+    return repository.findAll()
+            .stream()
+            .map(mapper::toResponse)
+            .toList();
   }
 
-  public BookEdition findById(UUID id) {
-    return repository.findById(id).orElseThrow(() -> new BookEditionNotFoundException(id));
+  public BookEditionResponse findById(UUID id) {
+    BookEdition edition = repository.findById(id)
+            .orElseThrow(() -> new BookEditionNotFoundException(id));
+
+    return mapper.toResponse(edition);
   }
 
-  public BookEdition create(BookEdition edition) {
-    return repository.save(edition);
+  public BookEditionResponse create(BookEditionRequest request) {
+    Book book = bookRepository.findById(request.bookId())
+            .orElseThrow(() -> new BookNotFoundException(request.bookId()));
+
+    BookEdition entity = mapper.toEntity(request, book);
+
+    return mapper.toResponse(repository.save(entity));
   }
 
-  public BookEdition update(UUID id, BookEdition updated) {
-    BookEdition existing = findById(id);
+  public BookEditionResponse update(UUID id, BookEditionRequest request) {
+    BookEdition existing = repository.findById(id)
+            .orElseThrow(() -> new BookEditionNotFoundException(id));
 
-    existing.setIsbn(updated.getIsbn());
-    existing.setLanguage(updated.getLanguage());
-    existing.setFormat(updated.getFormat());
-    existing.setPageCount(updated.getPageCount());
-    existing.setPublisher(updated.getPublisher());
-    existing.setPrice(updated.getPrice());
-    existing.setPublicationDate(updated.getPublicationDate());
-    existing.setBook(updated.getBook());
+    Book book = bookRepository.findById(request.bookId())
+            .orElseThrow(() -> new BookNotFoundException(request.bookId()));
 
-    return repository.save(existing);
+    existing.setIsbn(request.isbn());
+    existing.setLanguage(request.language());
+    existing.setFormat(request.format());
+    existing.setPageCount(request.pageCount());
+    existing.setPublisher(request.publisher());
+    existing.setPrice(request.price());
+    existing.setPublicationDate(request.publicationDate());
+    existing.setBook(book);
+
+    return mapper.toResponse(repository.save(existing));
   }
 
   public void delete(UUID id) {
