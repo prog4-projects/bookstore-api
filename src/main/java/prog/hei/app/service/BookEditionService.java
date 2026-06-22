@@ -13,6 +13,7 @@ import prog.hei.app.exception.BookNotFoundException;
 import prog.hei.app.mapper.BookEditionMapper;
 import prog.hei.app.repository.BookEditionRepository;
 import prog.hei.app.repository.BookRepository;
+import prog.hei.app.repository.StockMovementRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +22,7 @@ public class BookEditionService {
   private final BookEditionRepository repository;
   private final BookRepository bookRepository;
   private final BookEditionMapper mapper;
+  private final StockMovementRepository stockMovementRepository;
 
   public List<BookEditionResponse> findAll() {
     return repository.findAll().stream().map(mapper::toResponse).toList();
@@ -70,5 +72,16 @@ public class BookEditionService {
       throw new BookEditionNotFoundException(id);
     }
     repository.deleteById(id);
+  }
+
+
+  // stock
+
+  public Integer getStock(UUID id) {
+    if (!repository.existsById(id)) {
+      throw new BookEditionNotFoundException(id);
+    }
+
+    return stockMovementRepository.computeStock(id);
   }
 }
