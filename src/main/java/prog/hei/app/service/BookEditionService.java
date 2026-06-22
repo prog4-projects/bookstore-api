@@ -74,7 +74,6 @@ public class BookEditionService {
     repository.deleteById(id);
   }
 
-
   // stock
 
   public Integer getStock(UUID id) {
