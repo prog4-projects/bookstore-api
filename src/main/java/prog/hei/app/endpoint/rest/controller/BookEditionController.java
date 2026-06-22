@@ -42,4 +42,9 @@ public class BookEditionController {
   public void delete(@PathVariable UUID id) {
     service.delete(id);
   }
+
+  @GetMapping("/{id}/stock")
+  public Integer getStock(@PathVariable UUID id) {
+    return service.getStock(id);
+  }
 }
