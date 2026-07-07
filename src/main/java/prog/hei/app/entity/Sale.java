@@ -35,4 +35,7 @@ public class Sale {
 
   @OneToMany(mappedBy = "sale")
   private List<Payment> payments;
+
+  @OneToMany(mappedBy = "sale")
+  private List<StockMovement> stockMovements;
 }
