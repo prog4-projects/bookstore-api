@@ -24,4 +24,7 @@ public class Arrival {
 
   @OneToMany(mappedBy = "arrival")
   private List<ArrivalItem> arrivalItems;
+
+  @OneToMany(mappedBy = "arrival")
+  private List<StockMovement> stockMovements;
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import prog.hei.app.dto.book.request.BookRequest;
 import prog.hei.app.dto.book.response.BookResponse;
+import prog.hei.app.dto.book.response.BookStockResponse;
 import prog.hei.app.service.BookService;
 
 @RestController
@@ -32,6 +33,11 @@ public class BookController {
   @GetMapping("/{id}")
   public BookResponse getById(@PathVariable UUID id) {
     return bookService.findById(id);
+  }
+
+  @GetMapping("/{id}/stock")
+  public BookStockResponse getStock(@PathVariable UUID id) {
+    return bookService.getStock(id);
   }
 
   @PostMapping
