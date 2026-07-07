@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import prog.hei.app.dto.book.request.BookRequest;
 import prog.hei.app.dto.book.response.BookResponse;
+import prog.hei.app.dto.book.response.BookStockResponse;
 import prog.hei.app.entity.*;
 import prog.hei.app.exception.BookNotFoundException;
 import prog.hei.app.mapper.BookMapper;
@@ -58,5 +59,12 @@ public class BookService {
     Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
 
     bookRepository.delete(book);
+  }
+
+  public BookStockResponse getStock(UUID id) {
+    Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+    Integer bookStock = bookRepository.getStockById(id);
+
+    return new BookStockResponse(book.getId(), book.getTitle(), bookStock);
   }
 }
