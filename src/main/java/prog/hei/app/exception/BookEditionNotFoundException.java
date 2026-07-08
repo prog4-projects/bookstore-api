@@ -5,6 +5,6 @@ import java.util.UUID;
 public class BookEditionNotFoundException extends NotFoundException {
 
   public BookEditionNotFoundException(UUID id) {
-    super("BookEdition not found " + id);
+    super("BookEdition not found with id: " + id);
   }
 }
