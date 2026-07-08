@@ -14,4 +14,6 @@ public record BookEditionResponse(
     Integer pageCount,
     String publisher,
     BigDecimal price,
-    LocalDateTime publicationDate) {}
+    LocalDateTime publicationDate,
+    UUID bookId,
+    String bookTitle) {}
