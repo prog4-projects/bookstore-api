@@ -34,4 +34,12 @@ public class StockMovement {
   @ManyToOne
   @JoinColumn(name = "book_edition_id", nullable = false)
   private BookEdition bookEdition;
+
+  @ManyToOne
+  @JoinColumn(name = "arrival_id")
+  private Arrival arrival;
+
+  @ManyToOne
+  @JoinColumn(name = "sale_id")
+  private Sale sale;
 }

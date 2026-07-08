@@ -14,26 +14,24 @@ import prog.hei.app.entity.Book;
 @Component
 @RequiredArgsConstructor
 public class BookMapper {
+
   private final BookEditionMapper bookEditionMapper;
 
   public BookResponse toResponse(Book book) {
-
     return new BookResponse(
         book.getId().toString(),
         book.getTitle(),
         book.getDescription(),
         book.getGender(),
         toAuthorResponses(book.getAuthorBooks()),
-        bookEditionMapper.toBookEditionResponse(book.getBookEditions()));
+        bookEditionMapper.toResponseList(book.getBookEditions()));
   }
 
   public Book toEntity(BookRequest request) {
     Book book = new Book();
-
     book.setTitle(request.title());
     book.setDescription(request.description());
     book.setGender(request.gender());
-
     return book;
   }
 
