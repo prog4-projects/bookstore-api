@@ -22,7 +22,6 @@ import prog.hei.app.service.LibraryService;
 public class LibraryControllerTest {
   @Autowired private MockMvc mockMvc;
   @MockBean private LibraryService libraryService;
-  private LibraryController libraryController;
 
   private Library behenjyLibrary;
   private Library ambatolampyLibrary;

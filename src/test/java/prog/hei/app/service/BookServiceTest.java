@@ -18,15 +18,11 @@ import prog.hei.app.entity.Book;
 import prog.hei.app.entity.enums.BookGenderEnum;
 import prog.hei.app.exception.BookNotFoundException;
 import prog.hei.app.mapper.BookMapper;
-import prog.hei.app.repository.AuthorBookRepository;
-import prog.hei.app.repository.BookEditionRepository;
 import prog.hei.app.repository.BookRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class BookServiceTest {
   @Mock private BookRepository bookRepository;
-  @Mock private BookEditionRepository bookEditionRepository;
-  @Mock private AuthorBookRepository authorBookRepository;
   @Mock private BookMapper bookMapper;
 
   @InjectMocks private BookService bookService;
