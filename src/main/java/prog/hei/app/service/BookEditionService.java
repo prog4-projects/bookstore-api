@@ -83,6 +83,5 @@ public class BookEditionService {
 
     Integer stock = stockMovementRepository.computeStock(id);
     return stock != null ? stock : 0;
-
   }
 }

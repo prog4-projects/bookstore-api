@@ -117,4 +117,28 @@ class BookEditionControllerTest {
 
     mockMvc.perform(delete("/book-editions/" + id)).andExpect(status().isOk());
   }
+
+  @Test
+  void should_return_stock_when_bookEdition_exists() throws Exception {
+
+    UUID id = UUID.randomUUID();
+
+    when(service.getStock(id)).thenReturn(10);
+
+    mockMvc
+        .perform(get("/book-editions/{id}/stock", id))
+        .andExpect(status().isOk())
+        .andExpect(content().string("10"));
+  }
+
+  @Test
+  void should_return_404_when_bookEdition_not_found() throws Exception {
+
+    UUID id = UUID.randomUUID();
+
+    when(service.getStock(id))
+        .thenThrow(new prog.hei.app.exception.BookEditionNotFoundException(id));
+
+    mockMvc.perform(get("/book-editions/{id}/stock", id)).andExpect(status().isNotFound());
+  }
 }
