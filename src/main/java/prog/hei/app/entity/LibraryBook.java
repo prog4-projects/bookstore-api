@@ -2,7 +2,6 @@ package prog.hei.app.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-
 import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.*;
