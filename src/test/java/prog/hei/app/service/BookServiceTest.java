@@ -18,8 +18,8 @@ import prog.hei.app.entity.Book;
 import prog.hei.app.entity.enums.BookGenderEnum;
 import prog.hei.app.exception.BookNotFoundException;
 import prog.hei.app.mapper.BookMapper;
-import prog.hei.app.repository.BookEditionRepository;
 import prog.hei.app.repository.AuthorBookRepository;
+import prog.hei.app.repository.BookEditionRepository;
 import prog.hei.app.repository.BookRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,7 +47,8 @@ public class BookServiceTest {
     book.setGender(BookGenderEnum.ROMANCE);
 
     request = new BookRequest("Test Title", "Description", BookGenderEnum.ROMANCE);
-    response = new BookResponse(id, "Test Title", "Description", BookGenderEnum.ROMANCE, null, null);
+    response =
+        new BookResponse(id, "Test Title", "Description", BookGenderEnum.ROMANCE, null, null);
     stockResponse = new BookStockResponse(id, "Test Title", 42);
   }
 
@@ -77,8 +78,7 @@ public class BookServiceTest {
   @Test
   void findById_shouldThrowException_whenBookDoesNotExist() {
     when(bookRepository.findById(id)).thenReturn(Optional.empty());
-    assertThatThrownBy(() -> bookService.findById(id))
-        .isInstanceOf(BookNotFoundException.class);
+    assertThatThrownBy(() -> bookService.findById(id)).isInstanceOf(BookNotFoundException.class);
   }
 
   @Test
@@ -124,8 +124,7 @@ public class BookServiceTest {
   @Test
   void delete_shouldThrowException_whenBookDoesNotExist() {
     when(bookRepository.findById(id)).thenReturn(Optional.empty());
-    assertThatThrownBy(() -> bookService.delete(id))
-        .isInstanceOf(BookNotFoundException.class);
+    assertThatThrownBy(() -> bookService.delete(id)).isInstanceOf(BookNotFoundException.class);
   }
 
   @Test
@@ -143,7 +142,6 @@ public class BookServiceTest {
   @Test
   void getStock_shouldThrowException_whenBookDoesNotExist() {
     when(bookRepository.findById(id)).thenReturn(Optional.empty());
-    assertThatThrownBy(() -> bookService.getStock(id))
-        .isInstanceOf(BookNotFoundException.class);
+    assertThatThrownBy(() -> bookService.getStock(id)).isInstanceOf(BookNotFoundException.class);
   }
 }

@@ -5,9 +5,9 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import java.util.UUID;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,8 @@ public class BookControllerTest {
     book.setTitle("Test Title");
     book.setDescription("Description");
     book.setGender(BookGenderEnum.MYSTERY);
-    response = new BookResponse(id, "Test Title", "Description", BookGenderEnum.MYSTERY, null, null);
+    response =
+        new BookResponse(id, "Test Title", "Description", BookGenderEnum.MYSTERY, null, null);
   }
 
   @Test
@@ -76,21 +77,26 @@ public class BookControllerTest {
   void create_shouldReturn201() throws Exception {
     var request = new BookRequest("Test Title", "Description", BookGenderEnum.HORROR);
     when(bookService.create(request)).thenReturn(response);
-    mockMvc.perform(post("/books")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(request)))
+    mockMvc
+        .perform(
+            post("/books")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
         .andExpect(status().isCreated());
   }
 
   @Test
   void update_shouldReturn200_whenBookExists() throws Exception {
     var request = new BookRequest("New Title", "New Desc", BookGenderEnum.FANTASY);
-    var updatedResponse = new BookResponse(id, "New Title", "New Desc", BookGenderEnum.FANTASY, null, null);
+    var updatedResponse =
+        new BookResponse(id, "New Title", "New Desc", BookGenderEnum.FANTASY, null, null);
     when(bookService.update(id, request)).thenReturn(updatedResponse);
 
-    mockMvc.perform(put("/books/" + id)
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(request)))
+    mockMvc
+        .perform(
+            put("/books/" + id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
         .andExpect(status().isOk());
   }
 
@@ -100,9 +106,11 @@ public class BookControllerTest {
     var request = new BookRequest("Test Title", "Desc", BookGenderEnum.HISTORY);
     when(bookService.update(randomId, request)).thenThrow(new BookNotFoundException(randomId));
 
-    mockMvc.perform(put("/books/" + randomId)
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(request)))
+    mockMvc
+        .perform(
+            put("/books/" + randomId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
         .andExpect(status().isNotFound());
   }
 
@@ -123,8 +131,7 @@ public class BookControllerTest {
     var stockResponse = new BookStockResponse(id, "Test Title", 10);
     when(bookService.getStock(id)).thenReturn(stockResponse);
 
-    mockMvc.perform(get("/books/" + id + "/stock"))
-        .andExpect(status().isOk());
+    mockMvc.perform(get("/books/" + id + "/stock")).andExpect(status().isOk());
   }
 
   @Test
@@ -132,7 +139,6 @@ public class BookControllerTest {
     UUID randomId = UUID.randomUUID();
     when(bookService.getStock(randomId)).thenThrow(new BookNotFoundException(randomId));
 
-    mockMvc.perform(get("/books/" + randomId + "/stock"))
-        .andExpect(status().isNotFound());
+    mockMvc.perform(get("/books/" + randomId + "/stock")).andExpect(status().isNotFound());
   }
 }
