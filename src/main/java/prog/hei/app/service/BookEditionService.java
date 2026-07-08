@@ -81,6 +81,8 @@ public class BookEditionService {
       throw new BookEditionNotFoundException(id);
     }
 
-    return stockMovementRepository.computeStock(id);
+    Integer stock = stockMovementRepository.computeStock(id);
+    return stock != null ? stock : 0;
+
   }
 }
