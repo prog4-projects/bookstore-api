@@ -18,7 +18,6 @@ public class BookEditionMapper {
     edition.setFormat(request.format());
     edition.setPageCount(request.pageCount());
     edition.setPublisher(request.publisher());
-    edition.setPrice(request.price());
     edition.setPublicationDate(request.publicationDate());
     edition.setBook(book);
     return edition;
@@ -32,7 +31,6 @@ public class BookEditionMapper {
         edition.getFormat(),
         edition.getPageCount(),
         edition.getPublisher(),
-        edition.getPrice(),
         edition.getPublicationDate(),
         edition.getBook().getId(),
         edition.getBook().getTitle());

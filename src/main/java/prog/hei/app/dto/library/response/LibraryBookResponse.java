@@ -1,6 +1,5 @@
 package prog.hei.app.dto.library.response;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import prog.hei.app.entity.enums.BookFormatEnum;
@@ -17,5 +16,4 @@ public record LibraryBookResponse(
     BookFormatEnum format,
     Integer pageCount,
     String publisher,
-    BigDecimal price,
     LocalDateTime publicationDate) {}

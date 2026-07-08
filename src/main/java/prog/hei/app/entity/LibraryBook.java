@@ -2,6 +2,8 @@ package prog.hei.app.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+
+import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.*;
 
@@ -15,8 +17,13 @@ public class LibraryBook {
 
   @Id @GeneratedValue private UUID id;
 
+  @Column(name = "purchase_price", nullable = false)
   @Min(0)
-  private int stock;
+  private BigDecimal purchasePrice;
+
+  @Column(name = "selling_price", nullable = false)
+  @Min(0)
+  private BigDecimal sellingPrice;
 
   @ManyToOne
   @JoinColumn(name = "library_id")
