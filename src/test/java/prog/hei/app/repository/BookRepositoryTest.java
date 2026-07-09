@@ -3,7 +3,6 @@ package prog.hei.app.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import jakarta.persistence.EntityManager;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
@@ -41,19 +40,17 @@ class BookRepositoryTest {
                 book_id,
                 isbn,
                 page_count,
-                price,
                 publication_date,
                 language
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?)
             """)
         .setParameter(1, editionId)
         .setParameter(2, bookId)
         .setParameter(3, UUID.randomUUID().toString())
         .setParameter(4, 200)
-        .setParameter(5, BigDecimal.valueOf(10000))
-        .setParameter(6, LocalDateTime.now())
-        .setParameter(7, "FRENCH")
+        .setParameter(5, LocalDateTime.now())
+        .setParameter(6, "FRENCH")
         .executeUpdate();
   }
 

@@ -10,7 +10,7 @@ public interface SaleItemRepository extends JpaRepository<SaleItem, UUID> {
 
   @Query(
       """
-      SELECT b.gender, COALESCE(SUM(si.quantity * be.price), 0)
+      SELECT b.gender, COALESCE(SUM(si.quantity * si.unitPrice), 0)
       FROM SaleItem si
       JOIN si.bookEdition be
       JOIN be.book b

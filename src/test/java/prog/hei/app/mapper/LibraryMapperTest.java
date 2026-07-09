@@ -2,7 +2,6 @@ package prog.hei.app.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +66,6 @@ class LibraryMapperTest {
     edition.setFormat(BookFormatEnum.PAPERBACK);
     edition.setPageCount(100);
     edition.setPublisher("Pub");
-    edition.setPrice(new BigDecimal("10.00"));
     edition.setPublicationDate(LocalDateTime.now());
     edition.setBook(book);
 
@@ -133,7 +131,6 @@ class LibraryMapperTest {
     edition.setFormat(BookFormatEnum.POCKET);
     edition.setPageCount(300);
     edition.setPublisher("Pub");
-    edition.setPrice(new BigDecimal("30.00"));
     edition.setPublicationDate(LocalDateTime.of(2024, 1, 1, 0, 0));
     edition.setBook(book);
 
@@ -151,7 +148,6 @@ class LibraryMapperTest {
     assertThat(result.format()).isEqualTo(BookFormatEnum.POCKET);
     assertThat(result.pageCount()).isEqualTo(300);
     assertThat(result.publisher()).isEqualTo("Pub");
-    assertThat(result.price()).isEqualByComparingTo(new BigDecimal("30.00"));
     assertThat(result.publicationDate()).isEqualTo(LocalDateTime.of(2024, 1, 1, 0, 0));
   }
 

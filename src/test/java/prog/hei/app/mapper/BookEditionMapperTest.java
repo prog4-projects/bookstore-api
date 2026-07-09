@@ -2,7 +2,6 @@ package prog.hei.app.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -37,7 +36,6 @@ class BookEditionMapperTest {
             BookFormatEnum.POCKET,
             300,
             "Gallimard",
-            new BigDecimal("25.00"),
             LocalDateTime.of(2024, 1, 15, 0, 0),
             bookId);
 
@@ -48,7 +46,6 @@ class BookEditionMapperTest {
     assertThat(result.getFormat()).isEqualTo(BookFormatEnum.POCKET);
     assertThat(result.getPageCount()).isEqualTo(300);
     assertThat(result.getPublisher()).isEqualTo("Gallimard");
-    assertThat(result.getPrice()).isEqualByComparingTo(new BigDecimal("25.00"));
     assertThat(result.getPublicationDate()).isEqualTo(LocalDateTime.of(2024, 1, 15, 0, 0));
     assertThat(result.getBook()).isEqualTo(book);
   }
@@ -68,7 +65,6 @@ class BookEditionMapperTest {
     edition.setFormat(BookFormatEnum.PAPERBACK);
     edition.setPageCount(150);
     edition.setPublisher("O'Reilly");
-    edition.setPrice(new BigDecimal("19.99"));
     edition.setPublicationDate(LocalDateTime.of(2024, 6, 1, 0, 0));
     edition.setBook(book);
 
@@ -80,7 +76,6 @@ class BookEditionMapperTest {
     assertThat(result.format()).isEqualTo(BookFormatEnum.PAPERBACK);
     assertThat(result.pageCount()).isEqualTo(150);
     assertThat(result.publisher()).isEqualTo("O'Reilly");
-    assertThat(result.price()).isEqualByComparingTo(new BigDecimal("19.99"));
     assertThat(result.publicationDate()).isEqualTo(LocalDateTime.of(2024, 6, 1, 0, 0));
     assertThat(result.bookId()).isEqualTo(bookId);
     assertThat(result.bookTitle()).isEqualTo("Test Book");
@@ -105,7 +100,6 @@ class BookEditionMapperTest {
     edition.setIsbn("isbn");
     edition.setLanguage(BookLanguageEnum.ENGLISH);
     edition.setPageCount(100);
-    edition.setPrice(BigDecimal.TEN);
     edition.setPublicationDate(LocalDateTime.now());
     edition.setBook(book);
 

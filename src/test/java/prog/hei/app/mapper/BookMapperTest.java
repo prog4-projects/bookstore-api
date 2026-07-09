@@ -3,6 +3,7 @@ package prog.hei.app.mapper;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -45,7 +46,15 @@ class BookMapperTest {
   void toResponse_shouldMapAllFields() {
     BookEditionResponse editionResponse =
         new BookEditionResponse(
-            UUID.randomUUID(), "isbn", null, null, 100, "pub", null, null, bookId, "Test Title");
+            UUID.randomUUID(),
+            "isbn",
+            null,
+            null,
+            100,
+            "pub",
+            LocalDateTime.now(),
+            bookId,
+            "Test Title");
     when(bookEditionMapper.toResponseList(null)).thenReturn(List.of(editionResponse));
 
     BookResponse result = bookMapper.toResponse(book);
