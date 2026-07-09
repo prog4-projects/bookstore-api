@@ -159,6 +159,21 @@ class BookEditionControllerTest {
   }
 
   @Test
+  void should_Return_Low_Stock_BookEditions() throws Exception {
+    UUID id = UUID.randomUUID();
+
+    BookEditionStockResponse response = new BookEditionStockResponse(id, "Clean Code", 2);
+
+    when(service.getLowStock(3)).thenReturn(List.of(response));
+
+    mockMvc
+        .perform(get("/book-editions/low-stock"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[0].bookEditionId").value(id.toString()))
+        .andExpect(jsonPath("$[0].title").value("Clean Code"))
+        .andExpect(jsonPath("$[0].stock").value(2));
+  }
+
   void should_return404_when_delete_book_edition_not_found() throws Exception {
     UUID id = UUID.randomUUID();
     org.mockito.Mockito.doThrow(new BookEditionNotFoundException(id)).when(service).delete(id);
