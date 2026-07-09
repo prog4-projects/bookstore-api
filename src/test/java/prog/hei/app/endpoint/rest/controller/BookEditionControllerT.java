@@ -172,6 +172,8 @@ class BookEditionControllerTest {
         .andExpect(jsonPath("$[0].bookEditionId").value(id.toString()))
         .andExpect(jsonPath("$[0].title").value("Clean Code"))
         .andExpect(jsonPath("$[0].stock").value(2));
+  }
+
   void should_return404_when_delete_book_edition_not_found() throws Exception {
     UUID id = UUID.randomUUID();
     org.mockito.Mockito.doThrow(new BookEditionNotFoundException(id)).when(service).delete(id);
