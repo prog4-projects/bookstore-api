@@ -6,7 +6,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -38,7 +37,6 @@ class BookEditionControllerTest {
         BookFormatEnum.PAPERBACK,
         200,
         "O'Reilly",
-        new BigDecimal("20.5"),
         LocalDateTime.now(),
         UUID.randomUUID());
   }
@@ -51,7 +49,6 @@ class BookEditionControllerTest {
         BookFormatEnum.PAPERBACK,
         200,
         "O'Reilly",
-        new BigDecimal("20.5"),
         LocalDateTime.now(),
         UUID.randomUUID(),
         "Clean Code");

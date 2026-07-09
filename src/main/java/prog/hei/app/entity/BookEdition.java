@@ -1,7 +1,6 @@
 package prog.hei.app.entity;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -33,9 +32,6 @@ public class BookEdition {
   private Integer pageCount;
 
   private String publisher;
-
-  @Column(nullable = false)
-  private BigDecimal price;
 
   @Column(nullable = false)
   private LocalDateTime publicationDate;
