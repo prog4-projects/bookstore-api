@@ -1,5 +1,6 @@
 package prog.hei.app.repository;
 
+import java.util.List;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,20 +13,10 @@ public interface BookEditionRepository extends JpaRepository<BookEdition, UUID> 
   @Query(
       value =
           """
-          SELECT COALESCE(
-              SUM(
-                  CASE
-                      WHEN sm.type = 'IN' THEN sm.quantity
-                      ELSE -sm.quantity
-                  END
-              ),
-              0
-          )
-          FROM book_edition be
-          JOIN stock_movement sm
-              ON sm.book_edition_id = be.id
-          WHERE be.id = :bookEditionId
-          """,
+SELECT be.* FROM book_edition be LEFT JOIN stock_movement sm ON sm.book_edition_id = be.id
+GROUP BY be.id
+HAVING COALESCE(SUM(CASE WHEN sm.type = 'IN' THEN sm.quantity ELSE -sm.quantity END), 0) <= :threshold
+""",
       nativeQuery = true)
-  Integer getStockById(@Param("bookEditionId") UUID bookEditionId);
+  List<BookEdition> findLowStock(@Param("threshold") Integer threshold);
 }
