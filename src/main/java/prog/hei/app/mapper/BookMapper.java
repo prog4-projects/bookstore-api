@@ -19,7 +19,7 @@ public class BookMapper {
 
   public BookResponse toResponse(Book book) {
     return new BookResponse(
-        book.getId().toString(),
+        book.getId(),
         book.getTitle(),
         book.getDescription(),
         book.getGender(),
