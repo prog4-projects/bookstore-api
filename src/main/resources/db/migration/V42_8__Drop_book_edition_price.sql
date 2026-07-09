@@ -1,0 +1,1 @@
+ALTER TABLE book_edition DROP COLUMN IF EXISTS price;
