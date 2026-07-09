@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import prog.hei.app.dto.book.request.BookRequest;
 import prog.hei.app.dto.book.response.BookResponse;
 import prog.hei.app.dto.book.response.BookStockResponse;
+import prog.hei.app.dto.revenue.response.RevenueByGenderResponse;
 import prog.hei.app.service.BookService;
+import prog.hei.app.service.RevenueService;
 
 @RestController
 @AllArgsConstructor
@@ -24,6 +26,7 @@ import prog.hei.app.service.BookService;
 public class BookController {
 
   private final BookService bookService;
+  private final RevenueService revenueService;
 
   @GetMapping
   public List<BookResponse> getAll() {
@@ -55,5 +58,10 @@ public class BookController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable UUID id) {
     bookService.delete(id);
+  }
+
+  @GetMapping("/revenues")
+  public List<RevenueByGenderResponse> getRevenueByGender() {
+    return revenueService.getRevenueByGender();
   }
 }
