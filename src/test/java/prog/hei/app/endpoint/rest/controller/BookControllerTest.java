@@ -23,11 +23,13 @@ import prog.hei.app.entity.enums.BookGenderEnum;
 import prog.hei.app.exception.BookNotFoundException;
 import prog.hei.app.exception.GlobalExceptionHandler;
 import prog.hei.app.service.BookService;
+import prog.hei.app.service.RevenueService;
 
 @WebMvcTest({BookController.class, GlobalExceptionHandler.class})
 public class BookControllerTest {
   @Autowired private MockMvc mockMvc;
   @MockBean private BookService bookService;
+  @MockBean private RevenueService revenueService;
   @Autowired private ObjectMapper objectMapper;
 
   private Book book;
