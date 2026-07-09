@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import prog.hei.app.dto.bookEdition.request.BookEditionRequest;
 import prog.hei.app.dto.bookEdition.response.BookEditionResponse;
+import prog.hei.app.dto.bookEdition.response.BookEditionStockResponse;
 import prog.hei.app.entity.Book;
 import prog.hei.app.entity.BookEdition;
 import prog.hei.app.exception.BookEditionNotFoundException;
@@ -31,6 +32,14 @@ public class BookEditionService {
         repository.findById(id).orElseThrow(() -> new BookEditionNotFoundException(id));
 
     return mapper.toResponse(edition);
+  }
+
+  public BookEditionStockResponse getStock(UUID id) {
+    BookEdition bookEdition =
+        repository.findById(id).orElseThrow(() -> new BookEditionNotFoundException(id));
+    Integer bookEditionStock = repository.getStockById(id);
+
+    return new BookEditionStockResponse(id, bookEdition.getBook().getTitle(), bookEditionStock);
   }
 
   public BookEditionResponse create(BookEditionRequest request) {

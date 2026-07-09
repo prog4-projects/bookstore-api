@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import prog.hei.app.dto.bookEdition.request.BookEditionRequest;
 import prog.hei.app.dto.bookEdition.response.BookEditionResponse;
+import prog.hei.app.dto.bookEdition.response.BookEditionStockResponse;
 import prog.hei.app.service.BookEditionService;
 
 @RestController
@@ -29,6 +30,11 @@ public class BookEditionController {
   @GetMapping("/{id}")
   public BookEditionResponse getById(@PathVariable UUID id) {
     return service.findById(id);
+  }
+
+  @GetMapping("/{id}/stock")
+  public BookEditionStockResponse getStock(@PathVariable UUID id) {
+    return service.getStock(id);
   }
 
   @PutMapping("/{id}")
