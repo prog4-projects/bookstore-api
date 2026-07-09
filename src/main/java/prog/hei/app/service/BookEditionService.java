@@ -80,4 +80,15 @@ public class BookEditionService {
     }
     repository.deleteById(id);
   }
+
+  public List<BookEditionStockResponse> getLowStock(Integer threshold) {
+    return repository.findLowStock(threshold).stream()
+        .map(
+            edition -> {
+              Integer stock = repository.getStockById(edition.getId());
+              return new BookEditionStockResponse(
+                  edition.getId(), edition.getBook().getTitle(), stock);
+            })
+        .toList();
+  }
 }

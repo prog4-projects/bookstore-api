@@ -48,4 +48,10 @@ public class BookEditionController {
   public void delete(@PathVariable UUID id) {
     service.delete(id);
   }
+
+  @GetMapping("/low-stock")
+  public List<BookEditionStockResponse> getLowStock(
+      @RequestParam(defaultValue = "3") Integer threshold) {
+    return service.getLowStock(threshold);
+  }
 }
