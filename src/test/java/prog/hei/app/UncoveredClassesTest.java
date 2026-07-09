@@ -2,7 +2,6 @@ package prog.hei.app;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
@@ -78,7 +77,6 @@ class UncoveredClassesTest {
             BookFormatEnum.PAPERBACK,
             100,
             "Pub",
-            BigDecimal.TEN,
             LocalDateTime.now());
     assertThat(response.title()).isEqualTo("Title");
     assertThat(response.description()).isEqualTo("Desc");

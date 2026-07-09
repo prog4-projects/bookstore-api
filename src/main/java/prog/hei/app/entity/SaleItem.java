@@ -1,6 +1,7 @@
 package prog.hei.app.entity;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,9 @@ public class SaleItem {
 
   @Column(nullable = false)
   private Integer quantity;
+
+  @Column(nullable = false)
+  private BigDecimal unitPrice;
 
   @ManyToOne
   @JoinColumn(name = "sale_id", nullable = false)

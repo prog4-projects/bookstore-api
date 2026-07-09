@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -62,7 +61,6 @@ class BookEditionServiceTest {
     edition.setFormat(BookFormatEnum.PAPERBACK);
     edition.setPageCount(200);
     edition.setPublisher("O'Reilly");
-    edition.setPrice(new BigDecimal("20.5"));
     edition.setPublicationDate(LocalDateTime.now());
     edition.setBook(book);
 
@@ -73,7 +71,6 @@ class BookEditionServiceTest {
             BookFormatEnum.PAPERBACK,
             200,
             "O'Reilly",
-            new BigDecimal("20.5"),
             LocalDateTime.now(),
             bookId);
 
@@ -85,7 +82,6 @@ class BookEditionServiceTest {
             BookFormatEnum.PAPERBACK,
             200,
             "O'Reilly",
-            new BigDecimal("20.5"),
             LocalDateTime.now(),
             bookId,
             "Clean Code");
@@ -174,7 +170,6 @@ class BookEditionServiceTest {
     assertThat(edition.getFormat()).isEqualTo(BookFormatEnum.PAPERBACK);
     assertThat(edition.getPageCount()).isEqualTo(200);
     assertThat(edition.getPublisher()).isEqualTo("O'Reilly");
-    assertThat(edition.getPrice()).isEqualTo(new BigDecimal("20.5"));
     assertThat(edition.getBook()).isEqualTo(book);
   }
 
