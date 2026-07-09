@@ -17,17 +17,18 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import prog.hei.app.dto.bookEdition.request.BookEditionRequest;
 import prog.hei.app.dto.bookEdition.response.BookEditionResponse;
+import prog.hei.app.dto.bookEdition.response.BookEditionStockResponse;
 import prog.hei.app.entity.enums.BookFormatEnum;
 import prog.hei.app.entity.enums.BookLanguageEnum;
+import prog.hei.app.exception.BookEditionNotFoundException;
+import prog.hei.app.exception.GlobalExceptionHandler;
 import prog.hei.app.service.BookEditionService;
 
-@WebMvcTest(BookEditionController.class)
+@WebMvcTest({BookEditionController.class, GlobalExceptionHandler.class})
 class BookEditionControllerTest {
 
   @Autowired private MockMvc mockMvc;
-
   @MockBean private BookEditionService service;
-
   @Autowired private ObjectMapper objectMapper;
 
   private BookEditionRequest buildRequest() {
@@ -94,6 +95,34 @@ class BookEditionControllerTest {
   }
 
   @Test
+  void should_return404_when_book_edition_not_found() throws Exception {
+    UUID id = UUID.randomUUID();
+    when(service.findById(id)).thenThrow(new BookEditionNotFoundException(id));
+
+    mockMvc.perform(get("/book-editions/" + id)).andExpect(status().isNotFound());
+  }
+
+  @Test
+  void should_get_stock() throws Exception {
+    UUID id = UUID.randomUUID();
+    BookEditionStockResponse stockResponse = new BookEditionStockResponse(id, "Clean Code", 10);
+    when(service.getStock(id)).thenReturn(stockResponse);
+
+    mockMvc
+        .perform(get("/book-editions/" + id + "/stock"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.stock").value(10));
+  }
+
+  @Test
+  void should_return404_when_stock_not_found() throws Exception {
+    UUID id = UUID.randomUUID();
+    when(service.getStock(id)).thenThrow(new BookEditionNotFoundException(id));
+
+    mockMvc.perform(get("/book-editions/" + id + "/stock")).andExpect(status().isNotFound());
+  }
+
+  @Test
   void should_update_book_edition() throws Exception {
     UUID id = UUID.randomUUID();
 
@@ -110,11 +139,33 @@ class BookEditionControllerTest {
   }
 
   @Test
+  void should_return404_when_update_book_edition_not_found() throws Exception {
+    UUID id = UUID.randomUUID();
+    when(service.update(org.mockito.Mockito.eq(id), org.mockito.Mockito.any()))
+        .thenThrow(new BookEditionNotFoundException(id));
+
+    mockMvc
+        .perform(
+            put("/book-editions/" + id)
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(buildRequest())))
+        .andExpect(status().isNotFound());
+  }
+
+  @Test
   void should_delete_book_edition() throws Exception {
     UUID id = UUID.randomUUID();
 
     doNothing().when(service).delete(id);
 
     mockMvc.perform(delete("/book-editions/" + id)).andExpect(status().isOk());
+  }
+
+  @Test
+  void should_return404_when_delete_book_edition_not_found() throws Exception {
+    UUID id = UUID.randomUUID();
+    org.mockito.Mockito.doThrow(new BookEditionNotFoundException(id)).when(service).delete(id);
+
+    mockMvc.perform(delete("/book-editions/" + id)).andExpect(status().isNotFound());
   }
 }
