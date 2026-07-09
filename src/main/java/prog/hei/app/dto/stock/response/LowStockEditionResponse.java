@@ -1,19 +1,20 @@
-package prog.hei.app.dto.library.response;
+package prog.hei.app.dto.stock.response;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import prog.hei.app.entity.enums.BookFormatEnum;
-import prog.hei.app.entity.enums.BookGenderEnum;
 import prog.hei.app.entity.enums.BookLanguageEnum;
 
-public record LibraryBookResponse(
-    UUID bookEditionId,
-    String title,
-    String description,
-    BookGenderEnum gender,
+public record LowStockEditionResponse(
+    UUID editionId,
+    UUID bookId,
+    String bookTitle,
     String isbn,
     BookLanguageEnum language,
     BookFormatEnum format,
     Integer pageCount,
     String publisher,
-    LocalDateTime publicationDate) {}
+    BigDecimal price,
+    LocalDateTime publicationDate,
+    Integer stock) {}

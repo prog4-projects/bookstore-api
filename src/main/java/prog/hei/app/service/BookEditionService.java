@@ -67,7 +67,6 @@ public class BookEditionService {
     existing.setFormat(request.format());
     existing.setPageCount(request.pageCount());
     existing.setPublisher(request.publisher());
-    existing.setPrice(request.price());
     existing.setPublicationDate(request.publicationDate());
     existing.setBook(book);
 

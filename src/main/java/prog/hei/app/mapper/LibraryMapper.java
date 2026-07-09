@@ -47,7 +47,6 @@ public class LibraryMapper {
         libraryBook.getBookEdition().getFormat(),
         libraryBook.getBookEdition().getPageCount(),
         libraryBook.getBookEdition().getPublisher(),
-        libraryBook.getBookEdition().getPrice(),
         libraryBook.getBookEdition().getPublicationDate());
   }
 

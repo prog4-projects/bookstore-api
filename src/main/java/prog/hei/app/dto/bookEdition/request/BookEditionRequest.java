@@ -1,7 +1,6 @@
 package prog.hei.app.dto.bookEdition.request;
 
 import jakarta.validation.constraints.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import prog.hei.app.entity.enums.BookFormatEnum;
@@ -13,6 +12,5 @@ public record BookEditionRequest(
     BookFormatEnum format,
     @NotNull @Positive Integer pageCount,
     String publisher,
-    @NotNull @DecimalMin(value = "0.0", inclusive = false) BigDecimal price,
     @NotNull LocalDateTime publicationDate,
     @NotNull UUID bookId) {}
