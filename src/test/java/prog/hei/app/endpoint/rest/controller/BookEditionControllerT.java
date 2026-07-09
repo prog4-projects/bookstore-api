@@ -17,6 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import prog.hei.app.dto.bookEdition.request.BookEditionRequest;
 import prog.hei.app.dto.bookEdition.response.BookEditionResponse;
+import prog.hei.app.dto.bookEdition.response.BookEditionStockResponse;
 import prog.hei.app.entity.enums.BookFormatEnum;
 import prog.hei.app.entity.enums.BookLanguageEnum;
 import prog.hei.app.service.BookEditionService;
@@ -116,5 +117,21 @@ class BookEditionControllerTest {
     doNothing().when(service).delete(id);
 
     mockMvc.perform(delete("/book-editions/" + id)).andExpect(status().isOk());
+  }
+
+  @Test
+  void should_Return_Low_Stock_BookEditions() throws Exception {
+    UUID id = UUID.randomUUID();
+
+    BookEditionStockResponse response = new BookEditionStockResponse(id, "Clean Code", 2);
+
+    when(service.getLowStock(3)).thenReturn(List.of(response));
+
+    mockMvc
+        .perform(get("/book-editions/low-stock"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[0].bookEditionId").value(id.toString()))
+        .andExpect(jsonPath("$[0].title").value("Clean Code"))
+        .andExpect(jsonPath("$[0].stock").value(2));
   }
 }
