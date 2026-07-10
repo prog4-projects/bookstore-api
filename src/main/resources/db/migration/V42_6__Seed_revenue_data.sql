@@ -1,1 +1,0 @@
--- Already applied, placeholder for Flyway validation
